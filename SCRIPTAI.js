@@ -936,7 +936,7 @@ ${answerList}`;
 
                 <div id="brznz-credits">
                     desenvolvido por
-                    <span>CFOM Bueno</span>
+                    <span>-.-. .-.. --- -- / -... ..- . -. ---</span>
                 </div>
 
             </div>
