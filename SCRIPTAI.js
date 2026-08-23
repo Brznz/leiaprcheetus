@@ -825,7 +825,7 @@ ${answerList}`;
         <div id="brznz-header">
 
             <span id="brznz-title">
-                ⚡ BRZNZ TOOL
+                ⚡ LEIA PR CHEAT
             </span>
 
             <div id="brznz-window-buttons">
@@ -858,13 +858,13 @@ ${answerList}`;
             <div id="brznz-api-screen">
 
                 <label class="brznz-label">
-                    Gemini API Key
+                    Gemini API Key (pegue no site aistudio.google.com)
                 </label>
 
                 <input
                     id="brznz-api"
                     type="password"
-                    placeholder="Digite sua API Key..."
+                    placeholder="Digite sua API Key... "
                     value="${userAPI}"
                 >
 
@@ -936,7 +936,7 @@ ${answerList}`;
 
                 <div id="brznz-credits">
                     desenvolvido por
-                    <span>brznz bueno</span>
+                    <span>CFOM Bueno</span>
                 </div>
 
             </div>
