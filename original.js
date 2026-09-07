@@ -1,47 +1,69 @@
+async function MainHandler() {
+    let percent = getReadPercent();
+    while (percent != "100%") {
+        percent = getReadPercent();
+        console.log(percent);
+        await cheat();
+    }
+}
+
+
 async function cheat() {
+    await aguardar(2000)
+    await avanco();
+    let AIresponse = await askgemini(getQuestion(), getAnswer());
+    console.log(AIresponse);
+    selectCorrectAnswer(AIresponse);
+    await aguardar(300);
+    finishTest();
+    await aguardar(2000);
+    sendTest();
+    await aguardar(2000);
+    closeTest();
+    return console.log("finalizado");
 
-        await avanco();
-        let AIresponse = await askgemini(getQuestion(), getAnswer());
-        console.log(AIresponse);
-        selectCorrectAnswer(AIresponse);
-        await aguardar(300);
-        finishTest();
-        await aguardar(2000);
-        sendTest();
-        await aguardar(2000);
-        closeTest();
-    
+}
 
-};
-
-function stopCheat() {
-    rodando = false;
+function getReadPercent() {
+    let percent = document.querySelector(".pageNumber").textContent;
+    return percent;
 }
 
 async function avanco() {
     let verifytest = isTestOnScreen();
-
-    while (verifytest == null) {
-        if (verifytest != null) {
-            break;
-        } else {
+    console.log(verifytest);
+    let loop = true;
+    while (loop) {
+        if (verifytest == null) {
+            if (getReadPercent == "100%") { break; }
+            await aguardar(700);
+            verifytest = isTestOnScreen();
             await aguardar(300);
             callnexbutton();
-            verifytest = isTestOnScreen();
+        } else {
+            loop = false;
+
+        }
 
 
-            console.log(verifytest);
-
-        };
-    };
-    await aguardar(3000)
+    }
+    return "femboys";
 }
 
 
 function getQuestion() {
-    const question = document.querySelector('.question-quiz-text').innerHTML;
-    console.log(question);
-    return question;
+
+    try {
+        const question = document.querySelector('.question-quiz-text').innerHTML;
+        return question;
+    } catch (error) {
+        const question1 = document.querySelector('.quiz-text').innerHTML;
+        return question1;
+    }
+
+
+
+
 };
 
 function getAnswer() {
@@ -62,17 +84,23 @@ function aguardar(ms) {
 
 function callnexbutton() {
     const nextButton = document.querySelector('button[ng-click="goToNextPage()"]');
-    nextButton.click();
+    const nextButton1 = document.querySelector('div[ng-click="getNextPage()"]');
+
+
+    if (nextButton == null) {
+        nextButton1.click();
+    } else { nextButton.click(); }
 };
 
 
 function isTestOnScreen() {
     let teste = document.querySelector('.md-dialog-container md-dialog[aria-label="Teste "]');
-    return teste;
+    let teste1 = document.querySelector('.md-dialog-container md-dialog[aria-label="Test"]');
+    return teste || teste1;
 };
 
 async function askgemini(question, answerList) {
-    const apiKey = userAPI;
+    const apiKey = "femboys";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${apiKey}`;
 
 
@@ -97,7 +125,7 @@ async function askgemini(question, answerList) {
 
         const dados = await resposta.json();
         const respostaIA = dados.candidates[0].content.parts[0].text;
-        console.log(respostaIA);
+        console.log("resposta da IA: " + respostaIA);
         return respostaIA;
     } catch (erro) {
         console.error(
@@ -117,14 +145,14 @@ function sendTest() {
 }
 
 function closeTest() {
-    const closeButton = document.querySelector('button[aria-label=" Fechar"][ng-click="close()"]');
+    const closeButton = document.querySelector('.md-dialog-container .md-transition-in .md-toolbar-tools button[ng-click="close()"]');
     console.log(closeButton);
     closeButton.click();
 };
 
 function selectCorrectAnswer(AIresponse) {
-    const correctbutton = document.querySelectorAll('md-radio-button.choice-radio-button[aria-label=" Resposta correta"]');
+    const correctbutton = document.querySelectorAll('md-radio-button.choice-radio-button[ng-value="answerIndex($index)"]');
 
     correctbutton[AIresponse - 1].click();
 }
-
+MainHandler();
